@@ -1,5 +1,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/omega3');
+
+var Applicant = mongoose.model('Applicant', {
+	name: String,
+	bio: String,
+	skills: String,
+	years: Number,
+	why: String
+});
 
 var app = express();
 app.set('view engine', 'jade');
@@ -19,8 +30,18 @@ app.get('/applicants', function(req, res){
 
 // creates and applicant
 app.post('/applicant', function(req, res){
-	// Here is where you need to get the data
-	// from the post body and store it in the database
+	var candidate = new Applicant({
+		name: req.body.name,
+		bio: req.body.bio,
+		skills: req.body.skills,
+		years: req.body.years,
+		why: req.body.why
+	});
+	candidate.save(function(err){
+		if (err){
+			console.log('Error!!');
+		}
+	});
 	console.log(req.body);
 	res.redirect('/success');
 });
