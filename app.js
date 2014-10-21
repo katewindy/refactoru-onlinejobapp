@@ -13,14 +13,19 @@ app.get('/', function(req, res) {
 
 // displays a list of applicants
 app.get('/applicants', function(req, res){
-	res.render('applicants')
+	console.log(req.body);
+	res.render('applicants');
 });
 
 // creates and applicant
 app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
-	res.send('No funciona');
+	console.log(req.body);
+	res.redirect('/success');
+});
+app.get('/success', function(req, res){
+	res.render('success');
 });
 
 var server = app.listen(8441, function() {
