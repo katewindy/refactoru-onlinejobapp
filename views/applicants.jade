@@ -4,4 +4,6 @@ block content
 	.container
 		h1 Applicants
 		ul#applications.list-unstyled
-			li Applicants should go here.
+			for applicant in applicants
+				li
+					h3= applicant.name

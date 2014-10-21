@@ -19,13 +19,21 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 
 app.get('/', function(req, res) {
+
 	res.render('index');
 });
 
 // displays a list of applicants
 app.get('/applicants', function(req, res){
 	console.log(req.body);
-	res.render('applicants');
+	Applicant.find({}, function(err, data){
+		console.log('Err: ', err);
+		console.log('Data: ', data);
+		res.render('applicants', {
+			applicants: data
+		});
+	});
+	
 });
 
 // creates and applicant
